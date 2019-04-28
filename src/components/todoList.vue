@@ -26,23 +26,24 @@
         components:{
             inputText,listItem
         },
+        created:function(){
+            let storage=window.localStorage;
+            if(storage.todos!="undefined"){
+                this.todos=Array.from(Object.values(JSON.parse(storage.todos)));
+                //console.log(this.todos);
+            }
+        },
+        watch:{
+            todos:function () {
+                let storage=window.localStorage;
+                let data=JSON.stringify({...this.todos});
+                storage.setItem("todos",data);
+            }
+        },
         data(){
             return {
                 newTodoText:'',
-                todos:[
-                    {
-                        id:nextTodoId++,
-                        text:'Learn Vue'
-                    },
-                    {
-                        id:nextTodoId++,
-                        text:'Learn Node.js'
-                    },
-                    {
-                        id:nextTodoId++,
-                        text:'Find a girlfriend'
-                    }
-                ]
+                todos:[]
             }
         },
         methods:{
@@ -55,6 +56,7 @@
                     })
                     this.newTodoText='';
                 }
+
             },
             removeTodo(id){
                 this.todos=this.todos.filter(todo=>{
