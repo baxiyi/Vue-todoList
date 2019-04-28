@@ -20,7 +20,6 @@
 <script>
     import inputText from './inputText.vue'
     import listItem from './listItem.vue'
-    let nextTodoId=1;
     export default {
         name: "list.vue",
         components:{
@@ -50,8 +49,14 @@
             addTodo(){
                 const text=this.newTodoText.trim();
                 if(text){
+                    let idSet=new Set();
+                    for(let i in this.todos)
+                        idSet.add(this.todos[i].id);
+                    let nextId=1;
+                    while(idSet.has(nextId))
+                        nextId++;
                     this.todos.push({
-                        id:nextTodoId++,
+                        id:nextId,
                         text:text
                     })
                     this.newTodoText='';
