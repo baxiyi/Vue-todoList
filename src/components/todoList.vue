@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <div id="todolist">
         <inputText
                 v-model="newTodoText"
-                placeholder="Add new todo"
+                placeholder="search..."
                 @keydown.enter="addTodo"
         ></inputText>
+        <newButton id="new"></newButton>
         <ul v-if="todos.length">
             <listItem
                     v-for="todo in todos"
@@ -20,10 +21,11 @@
 <script>
     import inputText from './inputText.vue'
     import listItem from './listItem.vue'
+    import newButton from './newButton.vue'
     export default {
         name: "list.vue",
         components:{
-            inputText,listItem
+            inputText,listItem,newButton
         },
         created:function(){
             let storage=window.localStorage;
@@ -73,5 +75,7 @@
 </script>
 
 <style scoped>
-
+#new{
+    margin-left:10px;
+}
 </style>

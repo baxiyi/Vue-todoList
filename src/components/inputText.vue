@@ -29,8 +29,8 @@
 
 <style scoped>
     .input{
-        width:100%;
-        padding:8px 10px;
+        width:75%;
+        padding: 8px 10px;
         border:1px solid blue;
     }
 </style>

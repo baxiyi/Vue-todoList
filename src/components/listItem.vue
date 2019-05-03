@@ -16,3 +16,12 @@
         }
     }
 </script>
+<style scoped>
+    li{
+        word-wrap: break-word;
+        max-width:70%;
+    }
+    button{
+        border-radius: 10px;
+    }
+</style>
