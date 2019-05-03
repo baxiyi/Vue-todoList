@@ -19,7 +19,7 @@ export default {
 <style>
 #app {
   width: 400px;
-  line-height:1.5;
+  line-height: 1.5;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -18,10 +18,14 @@
         text-align: center;
         display:inline-block;
         border-radius: 5px;
-        padding:1px 5px;
+        padding:0 5px;
+        border:1px transparent solid;
     }
     div:hover{
-        border:1px solid black;
+        border-color:black;
+    }
+    div:active{
+        transform: scale(1.1,1.1);
     }
     span{
         font-size: 1.5em;

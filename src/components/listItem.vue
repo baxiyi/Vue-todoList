@@ -20,6 +20,7 @@
     li{
         word-wrap: break-word;
         max-width:70%;
+        line-height: 2;
     }
     button{
         border-radius: 10px;
