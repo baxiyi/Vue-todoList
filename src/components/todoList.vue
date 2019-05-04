@@ -1,19 +1,27 @@
 <template>
     <div id="todolist">
         <inputText
-                v-model="newTodoText"
+                v-model="searchText"
                 placeholder="search..."
                 @keydown.enter="addTodo"
         ></inputText>
-        <newButton id="new"></newButton>
+        <newButton id="new"
+                   @click.native="isNew=true"
+        ></newButton>
         <ul v-if="todos.length">
             <listItem
-                    v-for="todo in todos"
+                    v-for="todo in showTodos"
                     :key="todo.id"
                     :todo="todo"
                     @remove="removeTodo"
             ></listItem>
         </ul>
+        <newWindow :is-show="isNew"
+                    v-model="newTodoText"
+                   :value="newTodoText"
+                   @success-close="addTodo"
+                   @fail-close="isNew=false"
+        ></newWindow>
     </div>
 
 </template>
@@ -22,10 +30,11 @@
     import inputText from './inputText.vue'
     import listItem from './listItem.vue'
     import newButton from './newButton.vue'
+    import newWindow from './newWindow.vue'
     export default {
         name: "list.vue",
         components:{
-            inputText,listItem,newButton
+            inputText,listItem,newButton,newWindow
         },
         created:function(){
             let storage=window.localStorage;
@@ -44,11 +53,27 @@
         data(){
             return {
                 newTodoText:'',
-                todos:[]
+                searchText:'',
+                todos:[],
+                isNew:false
+            }
+        },
+        computed:{
+            showTodos(){
+                if(this.todos.length){
+                    return this.todos.filter((item)=>{
+                        return item.text.indexOf(this.searchText)!==-1;
+                    })
+                }
+                else{
+                    return [];
+                }
+
             }
         },
         methods:{
             addTodo(){
+                //console.log(this.newTodoText);
                 const text=this.newTodoText.trim();
                 if(text){
                     let idSet=new Set();
@@ -63,7 +88,7 @@
                     })
                     this.newTodoText='';
                 }
-
+                this.isNew=false;
             },
             removeTodo(id){
                 this.todos=this.todos.filter(todo=>{
